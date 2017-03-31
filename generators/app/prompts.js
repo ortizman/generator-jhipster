@@ -20,12 +20,12 @@ function askForInsightOptIn() {
 
     this.prompt({
         when: function () {
-            return insight.optOut === undefined;
+            return false; //nunca muestro esta opcion
         },
         type: 'confirm',
         name: 'insight',
         message: 'May ' + chalk.cyan('JHipster') + ' anonymously report usage statistics to improve the tool over time?',
-        default: true
+        default: false
     }).then(function (prompt) {
         if (prompt.insight !== undefined) {
             insight.optOut = !prompt.insight;
@@ -47,6 +47,9 @@ function askForApplicationType() {
     var getNumberedQuestion = this.getNumberedQuestion.bind(this);
 
     this.prompt({
+        when: function () {
+            return false; //nunca muestro esta opcion, uso siempre Monolithic application
+        },
         type: 'list',
         name: 'applicationType',
         message: function (response) {
@@ -104,7 +107,7 @@ function askForTestOpts() {
             {name: 'Gatling', value: 'gatling'},
             {name: 'Cucumber', value: 'cucumber'}
         );
-        defaultChoice = ['gatling'];
+        defaultChoice = [];
     }
     if (!this.skipClient) {
         // all client side test frameworks should be added here
@@ -115,6 +118,9 @@ function askForTestOpts() {
     var done = this.async();
 
     this.prompt({
+        when: function () {
+            return false; //nunca muestro esta opcion, por ahora test basicos con junit
+        },
         type: 'checkbox',
         name: 'testFrameworks',
         message: function (response) {
@@ -128,43 +134,6 @@ function askForTestOpts() {
     }.bind(this));
 }
 
-function askModulesToBeInstalled(done, generator) {
-    generator.httpGet('http://npmsearch.com/query?fields=name,description,author,version&q=keywords:jhipster-module&start=0&size=50',
-        function(body) {
-            var moduleResponse = JSON.parse(body);
-            var choices = [];
-            moduleResponse.results.forEach(function (modDef) {
-                choices.push({
-                    value: { name:modDef.name, version:modDef.version},
-                    name: '(' + modDef.name + '-' + modDef.version + ') '+ modDef.description + ' [' + modDef.author + ']'
-                });
-            });
-            if (choices.length > 0) {
-                generator.prompt({
-                    type: 'checkbox',
-                    name: 'otherModules',
-                    message: 'Which other modules would you like to use?',
-                    choices: choices,
-                    default: []
-                }).then(function (prompt) {
-                    // [ {name: [moduleName], version:[version]}, ...]
-                    generator.otherModules = [];
-                    prompt.otherModules.forEach(function(module) {
-                        generator.otherModules.push({name:module.name[0], version:module.version[0]});
-                    });
-                    generator.configOptions.otherModules = this.otherModules;
-                    done();
-                }.bind(generator));
-            } else {
-                done();
-            }
-        },
-        function (error) {
-            generator.warning(`Unable to contact server to fetch additional modules: ${ error.message }'`);
-            done();
-        });
-}
-
 function askForMoreModules() {
     if (this.existingProject) {
         return;
@@ -176,15 +145,20 @@ function askForMoreModules() {
         type: 'confirm',
         name: 'installModules',
         message: function(response) {
-            return generator.getNumberedQuestion('Would you like to install other generators from the JHipster Market Place?', true);
+            return generator.getNumberedQuestion('Would you like to install the plugin for entity-audit-and-delete?', true);
         },
         default: false
     }).then(function (prompt) {
         if (prompt.installModules) {
-            askModulesToBeInstalled(done, generator);
+          generator.configOptions.otherModules = [
+            {
+                value: { name:'generator-jhipster-entity-audit-and-delete', version:'2.2.2'},
+                name: 'generator-jhipster-entity-audit-and-delete-2.2.2'
+            }
+          ];
+          done();
         } else {
             done();
         }
     }.bind(this));
 }
-

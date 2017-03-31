@@ -64,16 +64,12 @@ function askForServerSideOpts() {
             },
             choices: [
                 {
-                    value: 'session',
-                    name: 'HTTP Session Authentication (stateful, default Spring Security mechanism)'
+                    value: 'jwt',
+                    name: 'JWT authentication (stateless, with a token)'
                 },
                 {
                     value: 'oauth2',
                     name: 'OAuth2 Authentication (stateless, with an OAuth2 server implementation)'
-                },
-                {
-                    value: 'jwt',
-                    name: 'JWT authentication (stateless, with a token)'
                 }
             ],
             default: 0
@@ -228,14 +224,6 @@ function askForServerSideOpts() {
                 {
                     value: 'sql',
                     name: 'SQL (H2, MySQL, MariaDB, PostgreSQL, Oracle, MSSQL)'
-                },
-                {
-                    value: 'mongodb',
-                    name: 'MongoDB'
-                },
-                {
-                    value: 'cassandra',
-                    name: 'Cassandra'
                 }
             ],
             default: 0
@@ -284,12 +272,12 @@ function askForServerSideOpts() {
             },
             choices: [
                 {
-                    value: 'h2Disk',
-                    name: 'H2 with disk-based persistence'
+                  value: 'h2Memory',
+                  name: 'H2 with in-memory persistence'
                 },
                 {
-                    value: 'h2Memory',
-                    name: 'H2 with in-memory persistence'
+                    value: 'h2Disk',
+                    name: 'H2 with disk-based persistence'
                 },
                 {
                     value: 'mysql',
@@ -415,10 +403,6 @@ function askForServerSideOpts() {
                 {
                     value: 'ehcache',
                     name: 'Yes, with ehcache (local cache, for a single node)'
-                },
-                {
-                    value: 'hazelcast',
-                    name: 'Yes, with HazelCast (distributed cache, for multiple nodes)'
                 }
             ],
             default: (applicationType === 'gateway' || applicationType === 'microservice' || applicationType === 'uaa') ? 2 : 1

@@ -17,7 +17,7 @@ var path = require('path'),
 
 const JHIPSTER_CONFIG_DIR = '.jhipster';
 const MODULES_HOOK_FILE = JHIPSTER_CONFIG_DIR + '/modules/jhi-hooks.json';
-const GENERATOR_JHIPSTER = 'generator-jhipster';
+const GENERATOR_JHIPSTER = 'generator-fhipster';
 
 const constants = require('./generator-constants'),
     CLIENT_MAIN_SRC_DIR = constants.CLIENT_MAIN_SRC_DIR,
@@ -1320,9 +1320,9 @@ Generator.prototype.printJHipsterLogo = function () {
   this.log(chalk.white.bold('                            https://jhipster.github.io\n'));
 
     if (this.checkInstall) this.checkForNewVersion();
-    this.log(chalk.white('Welcome to the JHipster Generator ') + chalk.yellow('v' + packagejs.version));
-    this.log(chalk.white('Documentation for creating an application: ' + chalk.yellow('https://jhipster.github.io/creating-an-app/')));
-    this.log(chalk.white('Application files will be generated in folder: ' + chalk.yellow(process.cwd())));
+    this.log(chalk.white('Este es el generado base de Flux para aplicaciones Java. ') + chalk.yellow('v' + packagejs.version));
+    this.log(chalk.white('Uso: ' + chalk.yellow('https://jhipster.github.io/creating-an-app/')));
+    this.log(chalk.white('El directorio base de la aplicacion será : ' + chalk.yellow(process.cwd())));
 };
 
 /**

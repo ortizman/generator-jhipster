@@ -24,7 +24,7 @@ module.exports = JhipsterGenerator.extend({
         this.option('skip-client', {
             desc: 'Skip the client-side application generation',
             type: Boolean,
-            defaults: false
+            defaults: true
         });
 
         // This adds support for a `--skip-server` flag
@@ -38,7 +38,7 @@ module.exports = JhipsterGenerator.extend({
         this.option('skip-user-management', {
             desc: 'Skip the user management module during app generation',
             type: Boolean,
-            defaults: false
+            defaults: true
         });
 
         // This adds support for a `--[no-]i18n` flag
@@ -66,7 +66,7 @@ module.exports = JhipsterGenerator.extend({
         this.option('jhi-prefix', {
             desc: 'Add prefix before services, controllers and states name',
             type: String,
-            defaults: 'jhi'
+            defaults: 'fx'
         });
 
         // This adds support for a `--yarn` flag

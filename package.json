@@ -1,7 +1,7 @@
 {
-  "name": "generator-jhipster",
+  "name": "generator-fhipster",
   "version": "3.12.2",
-  "description": "Spring Boot + AngularJS in one handy generator",
+  "description": "Template base para aplicaciones Java",
   "files": [
     "generators"
   ],
@@ -17,7 +17,7 @@
     "Angular",
     "Twitter Bootstrap"
   ],
-  "homepage": "http://jhipster.github.io/",
+  "homepage": "https://gitlab.extranet.fluxit.com.ar/",
   "bugs": "https://github.com/jhipster/generator-jhipster/issues",
   "author": {
     "name": "Julien Dubois",
@@ -27,7 +27,7 @@
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jhipster/generator-jhipster.git"
+    "url": "https://github.com/ortizman/generator-jhipster.git"
   },
   "scripts": {
     "pretest": "eslint .",

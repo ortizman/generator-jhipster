@@ -1,5 +1,5 @@
 Description:
-    Creates a new JHipster application based on the selected options
+    Creates a new FHipster application based on the selected options
 
 Example:
     yo jhipster
