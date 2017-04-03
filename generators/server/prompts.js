@@ -284,7 +284,7 @@ function askForServerSideOpts() {
                     name: 'MySQL'
                 }
             ],
-            default: 0
+            default: 3
         },
         {
             when: function (response) {
@@ -503,15 +503,6 @@ function askForOptionalItems() {
             }
         );
     }
-    if ((applicationType === 'monolith' || applicationType === 'gateway') &&
-            (this.hibernateCache === 'no' || this.hibernateCache === 'hazelcast')) {
-        choices.push(
-            {
-                name: 'Clustered HTTP sessions using Hazelcast',
-                value: 'clusteredHttpSession:hazelcast'
-            }
-        );
-    }
     if (applicationType === 'monolith' || applicationType === 'gateway') {
         choices.push(
             {
@@ -520,13 +511,6 @@ function askForOptionalItems() {
             }
         );
     }
-
-    choices.push(
-        {
-            name: '[BETA] Asynchronous messages using Apache Kafka',
-            value: 'messageBroker:kafka'
-        }
-    );
 
     if (choices.length > 0) {
         this.prompt({
