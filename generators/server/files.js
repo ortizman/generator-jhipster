@@ -30,9 +30,9 @@ function writeFiles() {
             this.template('_README.md', 'README.md', this, {});
             this.copy('gitignore', '.gitignore');
             this.copy('gitattributes', '.gitattributes');
-            this.copy('editorconfig', '.editorconfig');
-            this.template('_travis.yml', '.travis.yml', this, {});
-            this.template('_Jenkinsfile', 'Jenkinsfile', this, {});
+            //this.copy('editorconfig', '.editorconfig');
+            //this.template('_travis.yml', '.travis.yml', this, {});
+            //this.template('_Jenkinsfile', 'Jenkinsfile', this, {});
         },
 
         writeDockerFiles: function () {
@@ -123,10 +123,10 @@ function writeFiles() {
                 break;
             case 'maven':
             default :
-                this.copy('mvnw', 'mvnw');
-                this.copy('mvnw.cmd', 'mvnw.cmd');
-                this.copy('.mvn/wrapper/maven-wrapper.jar', '.mvn/wrapper/maven-wrapper.jar');
-                this.copy('.mvn/wrapper/maven-wrapper.properties', '.mvn/wrapper/maven-wrapper.properties');
+                //this.copy('mvnw', 'mvnw');
+                //this.copy('mvnw.cmd', 'mvnw.cmd');
+                //this.copy('.mvn/wrapper/maven-wrapper.jar', '.mvn/wrapper/maven-wrapper.jar');
+                //this.copy('.mvn/wrapper/maven-wrapper.properties', '.mvn/wrapper/maven-wrapper.properties');
                 this.template('_pom.xml', 'pom.xml', null, {'interpolate': INTERPOLATE_REGEX});
             }
         },
@@ -136,7 +136,7 @@ function writeFiles() {
 
             // Create Java resource files
             mkdirp(SERVER_MAIN_RES_DIR);
-            this.copy(SERVER_MAIN_RES_DIR + 'banner.txt', SERVER_MAIN_RES_DIR + 'banner.txt');
+            //this.copy(SERVER_MAIN_RES_DIR + 'banner.txt', SERVER_MAIN_RES_DIR + 'banner.txt');
 
             if (this.hibernateCache === 'ehcache') {
                 this.template(SERVER_MAIN_RES_DIR + '_ehcache.xml', SERVER_MAIN_RES_DIR + 'ehcache.xml', this, {});
@@ -252,7 +252,7 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_OAuth2RefreshTokenRepository.java', javaDir + 'repository/OAuth2RefreshTokenRepository.java', this, {});
             }
 
-            this.template(SERVER_MAIN_SRC_DIR + 'package/security/_package-info.java', javaDir + 'security/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/security/_package-info.java', javaDir + 'security/package-info.java', this, {});
             if (this.authenticationType === 'session') {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/security/_AjaxAuthenticationFailureHandler.java', javaDir + 'security/AjaxAuthenticationFailureHandler.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/security/_AjaxAuthenticationSuccessHandler.java', javaDir + 'security/AjaxAuthenticationSuccessHandler.java', this, {});
@@ -266,14 +266,14 @@ function writeFiles() {
             }
 
             if (this.enableSocialSignIn) {
-                this.template(SERVER_MAIN_SRC_DIR + 'package/security/social/_package-info.java', javaDir + 'security/social/package-info.java', this, {});
+                //this.template(SERVER_MAIN_SRC_DIR + 'package/security/social/_package-info.java', javaDir + 'security/social/package-info.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/config/social/_SocialConfiguration.java', javaDir + 'config/social/SocialConfiguration.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/domain/_SocialUserConnection.java', javaDir + 'domain/SocialUserConnection.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_CustomSocialConnectionRepository.java', javaDir + 'repository/CustomSocialConnectionRepository.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_CustomSocialUsersConnectionRepository.java', javaDir + 'repository/CustomSocialUsersConnectionRepository.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_SocialUserConnectionRepository.java', javaDir + 'repository/SocialUserConnectionRepository.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/security/social/_CustomSignInAdapter.java', javaDir + 'security/social/CustomSignInAdapter.java', this, {});
-                this.template(SERVER_MAIN_SRC_DIR + 'package/security/social/_package-info.java', javaDir + 'security/social/package-info.java', this, {});
+                //this.template(SERVER_MAIN_SRC_DIR + 'package/security/social/_package-info.java', javaDir + 'security/social/package-info.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/service/_SocialService.java', javaDir + 'service/SocialService.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_SocialController.java', javaDir + 'web/rest/SocialController.java', this, {});
             }
@@ -329,14 +329,14 @@ function writeFiles() {
             this.template(SERVER_MAIN_SRC_DIR + 'package/aop/logging/_LoggingAspect.java', javaDir + 'aop/logging/LoggingAspect.java', this, {});
 
             this.template(SERVER_MAIN_SRC_DIR + 'package/config/_DefaultProfileUtil.java', javaDir + 'config/DefaultProfileUtil.java', this, {});
-            this.template(SERVER_MAIN_SRC_DIR + 'package/config/apidoc/_package-info.java', javaDir + 'config/apidoc/package-info.java', this, {});
-            this.template(SERVER_MAIN_SRC_DIR + 'package/config/apidoc/_SwaggerConfiguration.java', javaDir + 'config/apidoc/SwaggerConfiguration.java', this, {});
-            this.template(SERVER_MAIN_SRC_DIR + 'package/config/apidoc/_PageableParameterBuilderPlugin.java', javaDir + 'config/apidoc/PageableParameterBuilderPlugin.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/config/apidoc/_package-info.java', javaDir + 'config/apidoc/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/config/apidoc/_SwaggerConfiguration.java', javaDir + 'config/apidoc/SwaggerConfiguration.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/config/apidoc/_PageableParameterBuilderPlugin.java', javaDir + 'config/apidoc/PageableParameterBuilderPlugin.java', this, {});
 
-            this.template(SERVER_MAIN_SRC_DIR + 'package/async/_package-info.java', javaDir + 'async/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/async/_package-info.java', javaDir + 'async/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/async/_ExceptionHandlingAsyncTaskExecutor.java', javaDir + 'async/ExceptionHandlingAsyncTaskExecutor.java', this, {});
 
-            this.template(SERVER_MAIN_SRC_DIR + 'package/config/_package-info.java', javaDir + 'config/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/config/_package-info.java', javaDir + 'config/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/config/_AsyncConfiguration.java', javaDir + 'config/AsyncConfiguration.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/config/_CacheConfiguration.java', javaDir + 'config/CacheConfiguration.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/config/_Constants.java', javaDir + 'config/Constants.java', this, {});
@@ -349,7 +349,7 @@ function writeFiles() {
             if (this.databaseType === 'sql'|| this.databaseType === 'mongodb') {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/config/_CloudDatabaseConfiguration.java', javaDir + 'config/CloudDatabaseConfiguration.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/config/_DatabaseConfiguration.java', javaDir + 'config/DatabaseConfiguration.java', this, {});
-                this.template(SERVER_MAIN_SRC_DIR + 'package/config/audit/_package-info.java', javaDir + 'config/audit/package-info.java', this, {});
+                //this.template(SERVER_MAIN_SRC_DIR + 'package/config/audit/_package-info.java', javaDir + 'config/audit/package-info.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/config/audit/_AuditEventConverter.java', javaDir + 'config/audit/AuditEventConverter.java', this, {});
             }
 
@@ -364,7 +364,7 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/config/_WebsocketSecurityConfiguration.java', javaDir + 'config/WebsocketSecurityConfiguration.java', this, {});
             }
 
-            this.template(SERVER_MAIN_SRC_DIR + 'package/config/locale/_package-info.java', javaDir + 'config/locale/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/config/locale/_package-info.java', javaDir + 'config/locale/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/config/locale/_AngularCookieLocaleResolver.java', javaDir + 'config/locale/AngularCookieLocaleResolver.java', this, {});
 
             if (this.databaseType === 'cassandra') {
@@ -381,7 +381,7 @@ function writeFiles() {
 
             if (this.databaseType === 'sql') {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/config/liquibase/_AsyncSpringLiquibase.java', javaDir + 'config/liquibase/AsyncSpringLiquibase.java', this, {});
-                this.template(SERVER_MAIN_SRC_DIR + 'package/config/liquibase/_package-info.java', javaDir + 'config/liquibase/package-info.java', this, {});
+                //this.template(SERVER_MAIN_SRC_DIR + 'package/config/liquibase/_package-info.java', javaDir + 'config/liquibase/package-info.java', this, {});
             }
             if (this.searchEngine === 'elasticsearch') {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/config/_ElasticSearchConfiguration.java', javaDir + 'config/ElasticSearchConfiguration.java', this, {});
@@ -393,7 +393,7 @@ function writeFiles() {
 
         writeServerJavaDomainFiles: function () {
 
-            this.template(SERVER_MAIN_SRC_DIR + 'package/domain/_package-info.java', javaDir + 'domain/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/domain/_package-info.java', javaDir + 'domain/package-info.java', this, {});
 
             this.template(SERVER_MAIN_SRC_DIR + 'package/domain/util/_JSR310DateConverters.java', javaDir + 'domain/util/JSR310DateConverters.java', this, {});
             if (this.databaseType === 'sql') {
@@ -411,13 +411,13 @@ function writeFiles() {
         writeServerJavaRepoFiles: function () {
 
             if (this.searchEngine === 'elasticsearch') {
-                this.template(SERVER_MAIN_SRC_DIR + 'package/repository/search/_package-info.java', javaDir + 'repository/search/package-info.java', this, {});
+                //this.template(SERVER_MAIN_SRC_DIR + 'package/repository/search/_package-info.java', javaDir + 'repository/search/package-info.java', this, {});
             }
             this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_package-info.java', javaDir + 'repository/package-info.java', this, {});
         },
 
         writeServerJavaServiceFiles: function () {
-            this.template(SERVER_MAIN_SRC_DIR + 'package/service/_package-info.java', javaDir + 'service/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/service/_package-info.java', javaDir + 'service/package-info.java', this, {});
 
             /* Skip the code below for --skip-user-management */
             if (this.skipUserManagement) return;
@@ -439,14 +439,14 @@ function writeFiles() {
 
         writeServerJavaWebFiles: function () {
 
-            this.template(SERVER_MAIN_SRC_DIR + 'package/web/filter/_package-info.java', javaDir + 'web/filter/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/web/filter/_package-info.java', javaDir + 'web/filter/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/filter/_CachingHttpHeadersFilter.java', javaDir + 'web/filter/CachingHttpHeadersFilter.java', this, {});
-            this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/vm/_package-info.java', javaDir + 'web/rest/vm/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/vm/_package-info.java', javaDir + 'web/rest/vm/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/vm/_LoggerVM.java', javaDir + 'web/rest/vm/LoggerVM.java', this, {});
 
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/util/_HeaderUtil.java', javaDir + 'web/rest/util/HeaderUtil.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/util/_PaginationUtil.java', javaDir + 'web/rest/util/PaginationUtil.java', this, {});
-            this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_package-info.java', javaDir + 'web/rest/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_package-info.java', javaDir + 'web/rest/package-info.java', this, {});
 
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_LogsResource.java', javaDir + 'web/rest/LogsResource.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_ProfileInfoResource.java', javaDir + 'web/rest/ProfileInfoResource.java', this, {});
@@ -457,9 +457,9 @@ function writeFiles() {
 
             if (this.websocket !== 'spring-websocket') return;
 
-            this.template(SERVER_MAIN_SRC_DIR + 'package/web/websocket/_package-info.java', javaDir + 'web/websocket/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/web/websocket/_package-info.java', javaDir + 'web/websocket/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/websocket/_ActivityService.java', javaDir + 'web/websocket/ActivityService.java', this, {});
-            this.template(SERVER_MAIN_SRC_DIR + 'package/web/websocket/dto/_package-info.java', javaDir + 'web/websocket/dto/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/web/websocket/dto/_package-info.java', javaDir + 'web/websocket/dto/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/websocket/dto/_ActivityDTO.java', javaDir + 'web/websocket/dto/ActivityDTO.java', this, {});
 
         },
@@ -573,7 +573,7 @@ function writeFiles() {
             }
 
             /* User management java web files */
-            this.template(SERVER_MAIN_SRC_DIR + 'package/service/dto/_package-info.java', javaDir + 'service/dto/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/service/dto/_package-info.java', javaDir + 'service/dto/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/service/dto/_UserDTO.java', javaDir + 'service/dto/UserDTO.java', this, {});
 
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/vm/_ManagedUserVM.java', javaDir + 'web/rest/vm/ManagedUserVM.java', this, {});
@@ -581,7 +581,7 @@ function writeFiles() {
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_AccountResource.java', javaDir + 'web/rest/AccountResource.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/vm/_KeyAndPasswordVM.java', javaDir + 'web/rest/vm/KeyAndPasswordVM.java', this, {});
 
-            this.template(SERVER_MAIN_SRC_DIR + 'package/service/mapper/_package-info.java', javaDir + 'service/mapper/package-info.java', this, {});
+            //this.template(SERVER_MAIN_SRC_DIR + 'package/service/mapper/_package-info.java', javaDir + 'service/mapper/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/service/mapper/_UserMapper.java', javaDir + 'service/mapper/UserMapper.java', this, {});
 
 
