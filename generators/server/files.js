@@ -277,6 +277,10 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/service/_SocialService.java', javaDir + 'service/SocialService.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_SocialController.java', javaDir + 'web/rest/SocialController.java', this, {});
             }
+
+            if (this.enableLdapSupport) {
+              this.copy(SERVER_MAIN_SRC_DIR + 'package/security/ldap', SERVER_MAIN_RES_DIR + 'config/cql/changelog/README.md');
+            }
         },
 
         writeServerJavaGatewayFiles: function () {

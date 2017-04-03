@@ -218,6 +218,11 @@ module.exports = JhipsterServerGenerator.extend({
                     this.enableSocialSignIn = false;
                 }
 
+                // If ldap support is not defined, it is disabled by default
+                if (this.enableLdapSupport === undefined) {
+                    this.enableLdapSupport = false;
+                }
+
                 // If translation is not defined, it is enabled by default
                 if (this.enableTranslation === undefined) {
                     this.enableTranslation = true;
