@@ -203,16 +203,15 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/security/jwt/_JWTFilter.java', javaDir + 'security/jwt/JWTFilter.java', this, {});
             }
 
-            /* Skip the code below for --skip-user-management */
-            if (this.skipUserManagement) return;
-
-            if(this.applicationType === 'uaa') {
-                this.template(SERVER_MAIN_SRC_DIR + 'package/config/_UaaWebSecurityConfiguration.java', javaDir + 'config/UaaWebSecurityConfiguration.java', this, {});
-                this.template(SERVER_MAIN_SRC_DIR + 'package/config/_UaaConfiguration.java', javaDir + 'config/UaaConfiguration.java', this, {});
-                this.template(SERVER_MAIN_SRC_DIR + 'package/config/_LoadBalancedResourceDetails.java', javaDir + 'config/LoadBalancedResourceDetails.java', this, {});
-            } else {
-                this.template(SERVER_MAIN_SRC_DIR + 'package/config/_SecurityConfiguration.java', javaDir + 'config/SecurityConfiguration.java', this, {});
+            if (this.enableLdapSupport && this.authenticationType === 'jwt') {
+              this.template(SERVER_MAIN_SRC_DIR + 'package/config/_SecurityConfiguration.java', javaDir + 'config/SecurityConfiguration.java', this, {});
+              this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/vm/_LoginVM.java', javaDir + 'web/rest/vm/LoginVM.java', this, {});
+              this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_UserJWTController.java', javaDir + 'web/rest/UserJWTController.java', this, {});
+              this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_JWTToken.java', javaDir + 'web/rest/JWTToken.java', this, {});
             }
+
+            /* NO Skip the code below for --skip-user-management */
+            // if (this.skipUserManagement) return;
 
             if (this.authenticationType === 'session') {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/domain/_PersistentToken.java', javaDir + 'domain/PersistentToken.java', this, {});
@@ -279,7 +278,7 @@ function writeFiles() {
             }
 
             if (this.enableLdapSupport) {
-              this.copy(SERVER_MAIN_SRC_DIR + 'package/security/ldap', SERVER_MAIN_RES_DIR + 'config/cql/changelog/README.md');
+              this.copy(SERVER_MAIN_SRC_DIR + 'package/security/ldap/_SecurityProperties.java', javaDir + 'security/SecurityProperties.java');
             }
         },
 

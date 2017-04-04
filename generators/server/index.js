@@ -162,6 +162,7 @@ module.exports = JhipsterServerGenerator.extend({
             }
             this.buildTool = this.config.get('buildTool');
             this.enableSocialSignIn = this.config.get('enableSocialSignIn');
+            this.enableLdapSupport = this.config.get('enableLdapSupport');
             this.jhipsterVersion = this.config.get('jhipsterVersion');
             if (this.jhipsterVersion === undefined) {
                 this.jhipsterVersion = packagejs.version;
@@ -220,7 +221,7 @@ module.exports = JhipsterServerGenerator.extend({
 
                 // If ldap support is not defined, it is disabled by default
                 if (this.enableLdapSupport === undefined) {
-                    this.enableLdapSupport = false;
+                    this.enableLdapSupport = true;
                 }
 
                 // If translation is not defined, it is enabled by default
@@ -268,6 +269,7 @@ module.exports = JhipsterServerGenerator.extend({
             this.configOptions.serviceDiscoveryType = this.serviceDiscoveryType;
             this.configOptions.buildTool = this.buildTool;
             this.configOptions.enableSocialSignIn = this.enableSocialSignIn;
+            this.configOptions.enableLdapSupport = this.enableLdapSupport;
             this.configOptions.authenticationType = this.authenticationType;
             this.configOptions.uaaBaseName = this.uaaBaseName;
             this.configOptions.serverPort = this.serverPort;
@@ -300,6 +302,7 @@ module.exports = JhipsterServerGenerator.extend({
             insight.track('app/serviceDiscoveryType', this.serviceDiscoveryType);
             insight.track('app/buildTool', this.buildTool);
             insight.track('app/enableSocialSignIn', this.enableSocialSignIn);
+            insight.track('app/enableLdapSupport', this.enableLdapSupport);
         },
 
         configureGlobal: function () {
@@ -351,6 +354,7 @@ module.exports = JhipsterServerGenerator.extend({
             this.config.set('serviceDiscoveryType', this.serviceDiscoveryType);
             this.config.set('buildTool', this.buildTool);
             this.config.set('enableSocialSignIn', this.enableSocialSignIn);
+            this.config.set('enableLdapSupport', this.enableLdapSupport);
             this.config.set('jwtSecretKey', this.jwtSecretKey);
             this.config.set('rememberMeKey', this.rememberMeKey);
             this.config.set('enableTranslation', this.enableTranslation);

@@ -32,6 +32,13 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 <%_ } _%>
 
+<%_ if(this.enableLdapSupport) { _%>
+import ar.com.fluxit.webapp.config.SecurityProperties;
+import ar.com.fluxit.webapp.config.SecurityProperties.Ldap;
+import ar.com.fluxit.webapp.config.SecurityProperties.Mode;
+<%_ } _%>
+
+
 import javax.inject.Inject;
 
 @Configuration
@@ -73,6 +80,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {<% if (
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) {
+
+      <%_ if(!this.enableLdapSupport) { _%>
         try {
             auth
                 .userDetailsService(userDetailsService)
@@ -80,6 +89,25 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {<% if (
         } catch (Exception e) {
             throw new BeanInitializationException("Security configuration failed", e);
         }
+      <%_ } else { _%>
+        try {
+    			if (securityProperties.getMode().equals(Mode.BD)) {
+    				log.debug("Authentication Mode: BD");
+    				auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    			} else if (securityProperties.getMode().equals(Mode.LDAP)){
+    				log.debug("Authentication Mode: LDAP");
+    				Ldap ldapProperties = securityProperties.getLdap();
+    				auth.ldapAuthentication().groupRoleAttribute("cn").groupSearchBase(ldapProperties.getGroupSearchBase())
+    						.groupSearchFilter(ldapProperties.getGroupSearchFilter()).userSearchFilter(ldapProperties.getUserSearchFilter()).contextSource()
+    						.url(ldapProperties.getUrl());
+    			}else{
+    				throw new CustomParameterizedException("Unsupported Authentication Mode");
+    			}
+
+    		} catch (Exception e) {
+    			throw new BeanInitializationException("Security configuration failed", e);
+    		}
+      <%_ } _%>
     }
 
     @Override

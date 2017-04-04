@@ -23,7 +23,12 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 <%_ } _%>
 import org.springframework.context.annotation.ComponentScan;
 <% if(authenticationType === 'uaa') { %>import org.springframework.context.annotation.FilterType;
-<%_ } _%>import org.springframework.core.env.Environment;
+<%_ } _%>
+<%_ if(this.enableLdapSupport) { _%>
+import ar.com.fluxit.webapp.config.SecurityProperties;
+<%_ } _%>
+
+import org.springframework.core.env.Environment;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -40,7 +45,7 @@ import java.util.Collection;
 @ComponentScan
 <%_ } _%>
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class<% if (clusteredHttpSession == 'hazelcast') { %>, HazelcastAutoConfiguration.class<% } %><% if (applicationType == 'gateway') { %>, MetricsDropwizardAutoConfiguration.class<% } %> })
-@EnableConfigurationProperties({ JHipsterProperties.class<% if (databaseType == 'sql') { %>, LiquibaseProperties.class<% } %> })
+@EnableConfigurationProperties({ JHipsterProperties.class<% if (databaseType == 'sql') { %>, LiquibaseProperties.class<% } %> <% if (this.enableLdapSupport) { %>, SecurityConfiguration.class<% } %>})
 <%_ if (applicationType == 'microservice' || applicationType == 'gateway' || applicationType == 'uaa') { _%>
 @EnableDiscoveryClient
 <%_ } _%>

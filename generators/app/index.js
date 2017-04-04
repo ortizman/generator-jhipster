@@ -38,7 +38,7 @@ module.exports = JhipsterGenerator.extend({
         this.option('skip-user-management', {
             desc: 'Skip the user management module during app generation',
             type: Boolean,
-            defaults: true
+            defaults: false
         });
 
         // This adds support for a `--[no-]i18n` flag
