@@ -3,6 +3,7 @@ var util = require('util'),
     generators = require('yeoman-generator'),
     chalk = require('chalk'),
     scriptBase = require('../generator-base'),
+    shelljs = require('shelljs'),
     cleanup = require('../cleanup'),
     prompts = require('./prompts'),
     packagejs = require('../../package.json'),
@@ -347,6 +348,17 @@ module.exports = JhipsterGenerator.extend({
                         force: this.options['force']
                     });
                 }
+                var thiss = this;
+                shelljs.exec('mvn eclipse:clean eclipse:eclipse ', {}, function (code, stdout, stderr) {
+                    if (!stderr) {
+                        thiss.log(
+                            chalk.yellow(' ______________________________________________________________________________\n\n') +
+                            chalk.yellow('  mvn eclipse:eclipse finalized successfully ') + '\n' +
+                            chalk.yellow(' ______________________________________________________________________________\n')
+                        );
+                    }
+                });
+
             } catch (err) {
                 this.log('\n' + chalk.bold.red('Running post run module hooks failed. No modification done to the generated app.'));
             }

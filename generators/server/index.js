@@ -224,7 +224,7 @@ module.exports = JhipsterServerGenerator.extend({
                     this.enableLdapSupport = true;
                 }
 
-                // If translation is not defined, it is enabled by default
+                // If translation is not defined, it is enabled by default 
                 if (this.enableTranslation === undefined) {
                     this.enableTranslation = true;
                 }

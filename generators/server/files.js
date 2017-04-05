@@ -277,6 +277,7 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_SocialController.java', javaDir + 'web/rest/SocialController.java', this, {});
             }
 
+            this.log('  valor de enableLdapSupport: '+ this.enableLdapSupport + '\n');
             if (this.enableLdapSupport) {
               this.copy(SERVER_MAIN_SRC_DIR + 'package/security/ldap/_SecurityProperties.java', javaDir + 'security/SecurityProperties.java');
             }
