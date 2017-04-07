@@ -13,9 +13,10 @@ import <%=packageName%>.config.JHipsterProperties;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;<% if (authenticationType == 'oauth2' || authenticationType == 'jwt') { %>
+import org.springframework.http.HttpMethod;<% if (authenticationType == 'oauth2') { %>
 import org.springframework.security.authentication.AuthenticationManager;<% } %>
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -32,10 +33,13 @@ import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 <%_ } _%>
 
-<%_ if(this.enableLdapSupport) { _%>
-import ar.com.fluxit.webapp.config.SecurityProperties;
-import ar.com.fluxit.webapp.config.SecurityProperties.Ldap;
-import ar.com.fluxit.webapp.config.SecurityProperties.Mode;
+<%_ if(enableLdapSupport) { _%>
+import <%=packageName%>.security.SecurityProperties;
+import <%=packageName%>.security.SecurityProperties.Ldap;
+import <%=packageName%>.security.SecurityProperties.Mode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import <%=packageName%>.web.rest.errors.CustomParameterizedException;
 <%_ } _%>
 
 
@@ -43,7 +47,8 @@ import javax.inject.Inject;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)<% if(enableLdapSupport) { %>
+@EnableConfigurationProperties(SecurityProperties.class)<% } %>
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {<% if (authenticationType == 'session') { %>
 
     @Inject
@@ -58,6 +63,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {<% if (
     @Inject
     private AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler;<% } if (authenticationType == 'session' || authenticationType == 'jwt') { %>
 
+    private static final Logger LOG = LoggerFactory.getLogger(SecurityConfiguration.class);
+
     @Inject
     private Http401UnauthorizedEntryPoint authenticationEntryPoint;<% } %>
 
@@ -71,7 +78,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {<% if (
     private SessionRegistry sessionRegistry;<% } %><% if (authenticationType == 'jwt') { %>
 
     @Inject
-    private TokenProvider tokenProvider;<% } %>
+    private TokenProvider tokenProvider;<% } %><% if (enableLdapSupport) { %>
+
+    @Inject
+  	private SecurityProperties securityProperties;<% } %>
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -81,7 +92,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {<% if (
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) {
 
-      <%_ if(!this.enableLdapSupport) { _%>
+      <%_ if(!enableLdapSupport) { _%>
         try {
             auth
                 .userDetailsService(userDetailsService)
@@ -92,10 +103,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {<% if (
       <%_ } else { _%>
         try {
     			if (securityProperties.getMode().equals(Mode.BD)) {
-    				log.debug("Authentication Mode: BD");
+    				LOG.debug("Authentication Mode: BD");
     				auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     			} else if (securityProperties.getMode().equals(Mode.LDAP)){
-    				log.debug("Authentication Mode: LDAP");
+    				LOG.debug("Authentication Mode: LDAP");
     				Ldap ldapProperties = securityProperties.getLdap();
     				auth.ldapAuthentication().groupRoleAttribute("cn").groupSearchBase(ldapProperties.getGroupSearchBase())
     						.groupSearchFilter(ldapProperties.getGroupSearchFilter()).userSearchFilter(ldapProperties.getUserSearchFilter()).contextSource()

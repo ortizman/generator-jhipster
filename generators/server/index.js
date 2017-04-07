@@ -19,7 +19,7 @@ const constants = require('../generator-constants'),
     QUESTIONS = constants.SERVER_QUESTIONS;
 
 module.exports = JhipsterServerGenerator.extend({
-    constructor: function () {
+    constructor: function() {
         generators.Base.apply(this, arguments);
 
         this.configOptions = this.options.configOptions || {};
@@ -72,13 +72,13 @@ module.exports = JhipsterServerGenerator.extend({
         this.yarnInstall = this.configOptions.yarnInstall = this.configOptions.yarnInstall || this.options['yarn'] || this.config.get('yarn');
     },
     initializing: {
-        displayLogo: function () {
+        displayLogo: function() {
             if (this.logo) {
                 this.printJHipsterLogo();
             }
         },
 
-        setupServerVars: function () {
+        setupServerVars: function() {
             // Make constants available in templates
             this.MAIN_DIR = constants.MAIN_DIR;
             this.TEST_DIR = constants.TEST_DIR;
@@ -162,7 +162,10 @@ module.exports = JhipsterServerGenerator.extend({
             }
             this.buildTool = this.config.get('buildTool');
             this.enableSocialSignIn = this.config.get('enableSocialSignIn');
+
+            //custom fluxit
             this.enableLdapSupport = this.config.get('enableLdapSupport');
+
             this.jhipsterVersion = this.config.get('jhipsterVersion');
             if (this.jhipsterVersion === undefined) {
                 this.jhipsterVersion = packagejs.version;
@@ -200,7 +203,8 @@ module.exports = JhipsterServerGenerator.extend({
                 this.devDatabaseType !== undefined &&
                 this.prodDatabaseType !== undefined &&
                 this.searchEngine !== undefined &&
-                this.buildTool !== undefined;
+                this.buildTool !== undefined &&
+                this.enableLdapSupport !== undefined;
 
             if (this.baseName !== undefined && serverConfigFound) {
 
@@ -224,7 +228,7 @@ module.exports = JhipsterServerGenerator.extend({
                     this.enableLdapSupport = true;
                 }
 
-                // If translation is not defined, it is enabled by default 
+                // If translation is not defined, it is enabled by default
                 if (this.enableTranslation === undefined) {
                     this.enableTranslation = true;
                 }
@@ -235,7 +239,7 @@ module.exports = JhipsterServerGenerator.extend({
                     this.languages = ['en', 'fr'];
                 }
                 // user-management will be handled by UAA app
-                if(this.applicationType === 'gateway' && this.authenticationType === 'uaa') {
+                if (this.applicationType === 'gateway' && this.authenticationType === 'uaa') {
                     this.skipUserManagement = true;
                 }
 
@@ -254,7 +258,7 @@ module.exports = JhipsterServerGenerator.extend({
         askForOptionalItems: prompts.askForOptionalItems,
         askFori18n: prompts.askFori18n,
 
-        setSharedConfigOptions: function () {
+        setSharedConfigOptions: function() {
             this.configOptions.lastQuestion = this.currentQuestion;
             this.configOptions.totalQuestions = this.totalQuestions;
             this.configOptions.packageName = this.packageName;
@@ -287,7 +291,7 @@ module.exports = JhipsterServerGenerator.extend({
     },
 
     configuring: {
-        insight: function () {
+        insight: function() {
             var insight = this.insight();
             insight.trackWithEvent('generator', 'server');
             insight.track('app/authenticationType', this.authenticationType);
@@ -305,7 +309,7 @@ module.exports = JhipsterServerGenerator.extend({
             insight.track('app/enableLdapSupport', this.enableLdapSupport);
         },
 
-        configureGlobal: function () {
+        configureGlobal: function() {
             // Application name modified, using each technology's conventions
             this.angularAppName = this.getAngularAppName();
             this.camelizedBaseName = _.camelCase(this.baseName);
@@ -335,9 +339,8 @@ module.exports = JhipsterServerGenerator.extend({
             }
         },
 
-        saveConfig: function () {
+        saveConfig: function() {
             this.config.set('jhipsterVersion', packagejs.version);
-            this.config.set('baseName', this.baseName);
             this.config.set('packageName', this.packageName);
             this.config.set('packageFolder', this.packageFolder);
             this.config.set('serverPort', this.serverPort);
@@ -366,7 +369,9 @@ module.exports = JhipsterServerGenerator.extend({
     },
 
     default: {
-        getSharedConfigOptions: function () {
+        getSharedConfigOptions: function() {
+            //custom fluxit: habilito por defecto el soporte para ldap
+
             this.useSass = this.configOptions.useSass ? this.configOptions.useSass : false;
             if (this.configOptions.enableTranslation !== undefined) {
                 this.enableTranslation = this.configOptions.enableTranslation;
@@ -380,9 +385,12 @@ module.exports = JhipsterServerGenerator.extend({
             if (this.configOptions.testFrameworks) {
                 this.testFrameworks = this.configOptions.testFrameworks;
             }
+            if (this.enableLdapSupport === undefined) {
+                this.enableLdapSupport = true;
+            }
         },
 
-        composeLanguages: function () {
+        composeLanguages: function() {
             if (this.configOptions.skipI18nQuestion) return;
 
             this.composeLanguagesSub(this, this.configOptions, 'server');
@@ -391,7 +399,7 @@ module.exports = JhipsterServerGenerator.extend({
 
     writing: writeFiles(),
 
-    end: function () {
+    end: function() {
         if (this.prodDatabaseType === 'oracle') {
             this.log('\n\n');
             this.warning(chalk.yellow.bold('You have selected Oracle database.\n') + 'Please rename ' +

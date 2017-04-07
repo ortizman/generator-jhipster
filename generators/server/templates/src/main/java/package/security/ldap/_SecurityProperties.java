@@ -1,4 +1,4 @@
-package ar.com.fluxit.webapp.config;
+package <%=packageName%>.security;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -12,7 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "security.auth", ignoreUnknownFields = true)
 public class SecurityProperties {
 
-	enum Mode {
+	public enum Mode {
 		BD, LDAP
 	}
 

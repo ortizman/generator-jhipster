@@ -203,7 +203,9 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/security/jwt/_JWTFilter.java', javaDir + 'security/jwt/JWTFilter.java', this, {});
             }
 
+
             if (this.enableLdapSupport && this.authenticationType === 'jwt') {
+
               this.template(SERVER_MAIN_SRC_DIR + 'package/config/_SecurityConfiguration.java', javaDir + 'config/SecurityConfiguration.java', this, {});
               this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/vm/_LoginVM.java', javaDir + 'web/rest/vm/LoginVM.java', this, {});
               this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_UserJWTController.java', javaDir + 'web/rest/UserJWTController.java', this, {});
@@ -277,7 +279,7 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_SocialController.java', javaDir + 'web/rest/SocialController.java', this, {});
             }
 
-            this.log('  valor de enableLdapSupport: '+ this.enableLdapSupport + '\n');
+            this.log('  +++++++++++++++++++++++ valor de enableLdapSupport: \n'+ this.enableLdapSupport + '\n +++++++++++++++++++++');
             if (this.enableLdapSupport) {
               this.copy(SERVER_MAIN_SRC_DIR + 'package/security/ldap/_SecurityProperties.java', javaDir + 'security/SecurityProperties.java');
             }

@@ -348,10 +348,10 @@ module.exports = JhipsterGenerator.extend({
                         force: this.options['force']
                     });
                 }
-                var thiss = this;
+                var _this = this;
                 shelljs.exec('mvn eclipse:clean eclipse:eclipse ', {}, function (code, stdout, stderr) {
                     if (!stderr) {
-                        thiss.log(
+                        _this.log(
                             chalk.yellow(' ______________________________________________________________________________\n\n') +
                             chalk.yellow('  mvn eclipse:eclipse finalized successfully ') + '\n' +
                             chalk.yellow(' ______________________________________________________________________________\n')
