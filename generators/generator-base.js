@@ -1311,26 +1311,18 @@ Generator.prototype.generateKeyStore = function() {
  * Prints a JHipster logo.
  */
 Generator.prototype.printJHipsterLogo = function () {
-  // this.log(`${chalk.green('\n  ████████╗')}${chalk.red(' ██╗   ██╗ ████████╗ ███████╗   ██████╗ ████████╗ ████████╗ ███████╗')}`);
-  // this.log(`${chalk.green('  ██╔═════╝')}${chalk.red(' ██║   ██║ ╚══██╔══╝ ██╔═══██╗ ██╔════╝ ╚══██╔══╝ ██╔═════╝ ██╔═══██╗')}`);
-  // this.log(`${chalk.green('  ██████║')}${chalk.red('   ████████║    ██║    ███████╔╝ ╚█████╗     ██║    ██████╗   ███████╔╝')}`);
-  // this.log(`${chalk.green('  ██╔═══╝')}${chalk.red('   ██╔═══██║    ██║    ██╔════╝   ╚═══██╗    ██║    ██╔═══╝   ██╔══██║')}`);
-  // this.log(`${chalk.green('  ██║')}${chalk.red('       ██║   ██║ ████████╗ ██║       ██████╔╝    ██║    ████████╗ ██║  ╚██╗')}`);
-  // this.log(`${chalk.green('  ╚═╝ ')}${chalk.red('      ╚═╝   ╚═╝ ╚═══════╝ ╚═╝       ╚═════╝     ╚═╝    ╚═══════╝ ╚═╝   ╚═╝')}\n`);
 
-// this.log(" ███▄    █ ▓█████ ▒██   ██▒▄▄▄█████▓     █████▒██▓     █    ██ ▒██   ██▒");
-// this.log(" ██ ▀█   █ ▓█   ▀ ▒▒ █ █ ▒░▓  ██▒ ▓▒   ▓██   ▒▓██▒     ██  ▓██▒▒▒ █ █ ▒░");
-// this.log("▓██  ▀█ ██▒▒███   ░░  █   ░▒ ▓██░ ▒░   ▒████ ░▒██░    ▓██  ▒██░░░  █   ░");
-// this.log("▓██▒  ▐▌██▒▒▓█  ▄  ░ █ █ ▒ ░ ▓██▓ ░    ░▓█▒  ░▒██░    ▓▓█  ░██░ ░ █ █ ▒ ");
-// this.log("▒██░   ▓██░░▒████▒▒██▒ ▒██▒  ▒██▒ ░    ░▒█░   ░██████▒▒▒█████▓ ▒██▒ ▒██▒");
-// this.log("░ ▒░   ▒ ▒ ░░ ▒░ ░▒▒ ░ ░▓ ░  ▒ ░░       ▒ ░   ░ ▒░▓  ░░▒▓▒ ▒ ▒ ▒▒ ░ ░▓ ░");
-// this.log("░ ░░   ░ ▒░ ░ ░  ░░░   ░▒ ░    ░        ░     ░ ░ ▒  ░░░▒░ ░ ░ ░░   ░▒ ░");
-// this.log("   ░   ░ ░    ░    ░    ░    ░          ░ ░     ░ ░    ░░░ ░ ░  ░    ░  ");
-// this.log("         ░    ░  ░ ░    ░                         ░  ░   ░      ░    ░  ");
-// this.log("                                                                        ");
+    this.log('\n');
+    this.log('███████╗██╗     ██╗   ██╗██╗  ██╗  ██╗███╗   ██╗ ██╗████████╗');
+    this.log('██╔════╝██║     ██║   ██║╚██╗██╔╝  ██║████╗  ██║ ██║╚══██╔══╝');
+    this.log('█████╗  ██║     ██║   ██║ ╚███╔╝   ██║██╔██╗ ██║ ██║   ██║   ');
+    this.log('██╔══╝  ██║     ██║   ██║ ██╔██╗   ██║██║╚██╗██║ ██║   ██║   ');
+    this.log('██║     ███████╗╚██████╔╝██╔╝ ██╗  ██║██║ ╚████║ ██║   ██║   ');
+    this.log('╚═╝     ╚══════╝ ╚═════╝ ╚═╝  ╚═╝  ╚═╝╚═╝  ╚═══╝ ╚═╝   ╚═╝   ');
+    this.log('.............................................................');
 
 
-    if (this.checkInstall) this.checkForNewVersion();
+    this.checkForNewVersion();
     this.log(chalk.white('Este es el generado base de Flux para aplicaciones Java. ') + chalk.yellow('v' + packagejs.version));
     this.log(chalk.white('Uso: ' + chalk.yellow('https://jhipster.github.io/creating-an-app/')));
     this.log(chalk.white('El directorio base de la aplicacion será : ' + chalk.yellow(process.cwd())));
