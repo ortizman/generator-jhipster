@@ -67,7 +67,7 @@ module.exports = JhipsterGenerator.extend({
         this.option('jhi-prefix', {
             desc: 'Add prefix before services, controllers and states name',
             type: String,
-            defaults: 'fx'
+            defaults: ''
         });
 
         // This adds support for a `--yarn` flag

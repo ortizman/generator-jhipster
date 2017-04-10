@@ -2,8 +2,9 @@ package <%=packageName%>.domain;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;<% if (databaseType == 'sql') { %>
-import org.hibernate.envers.Audited;<% } %>
+<% if (databaseType == 'sql') { %>
+import org.hibernate.envers.Audited;
+import <%=packageName%>.config.audit.EntityAuditEventListener;<% } %>
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -23,7 +24,7 @@ import javax.persistence.MappedSuperclass;<% } %>
  */<% if (databaseType == 'sql') { %>
 @MappedSuperclass
 @Audited
-@EntityListeners(AuditingEntityListener.class)<% } %>
+@EntityListeners({AuditingEntityListener.class, EntityAuditEventListener.class})<% } %>
 public abstract class AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,25 +32,21 @@ public abstract class AbstractAuditingEntity implements Serializable {
     @CreatedBy<% if (databaseType == 'sql') { %>
     @Column(name = "created_by", nullable = false, length = 50, updatable = false)<% } %><% if (databaseType == 'mongodb') { %>
     @Field("created_by")<% } %>
-    @JsonIgnore
     private String createdBy;
 
     @CreatedDate<% if (databaseType == 'sql') { %>
     @Column(name = "created_date", nullable = false)<% } %><% if (databaseType == 'mongodb') { %>
     @Field("created_date")<% } %>
-    @JsonIgnore
     private ZonedDateTime createdDate = ZonedDateTime.now();
 
     @LastModifiedBy<% if (databaseType == 'sql') { %>
     @Column(name = "last_modified_by", length = 50)<% } %><% if (databaseType == 'mongodb') { %>
     @Field("last_modified_by")<% } %>
-    @JsonIgnore
     private String lastModifiedBy;
 
     @LastModifiedDate<% if (databaseType == 'sql') { %>
     @Column(name = "last_modified_date")<% } %><% if (databaseType == 'mongodb') { %>
     @Field("last_modified_date")<% } %>
-    @JsonIgnore
     private ZonedDateTime lastModifiedDate = ZonedDateTime.now();
 
     public String getCreatedBy() {
