@@ -25,7 +25,7 @@ module.exports = JhipsterGenerator.extend({
         this.option('skip-client', {
             desc: 'Skip the client-side application generation',
             type: Boolean,
-            defaults: true
+            defaults: false
         });
 
         // This adds support for a `--skip-server` flag
@@ -204,7 +204,9 @@ module.exports = JhipsterGenerator.extend({
 
         askForModuleName: prompts.askForModuleName,
 
-        askForMoreModules: prompts.askForMoreModules,
+        askForEnableLdap: prompts.askForEnableLdap,
+
+        askForEnableAudit: prompts.askForEnableAudit
     },
 
     configuring: {

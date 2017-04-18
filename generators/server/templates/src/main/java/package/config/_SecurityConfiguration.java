@@ -63,8 +63,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {<% if (
     @Inject
     private AjaxLogoutSuccessHandler ajaxLogoutSuccessHandler;<% } if (authenticationType == 'session' || authenticationType == 'jwt') { %>
 
-    private static final Logger LOG = LoggerFactory.getLogger(SecurityConfiguration.class);
-
     @Inject
     private Http401UnauthorizedEntryPoint authenticationEntryPoint;<% } %>
 
@@ -80,6 +78,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {<% if (
     @Inject
     private TokenProvider tokenProvider;<% } %><% if (enableLdapSupport) { %>
 
+    private static final Logger LOG = LoggerFactory.getLogger(SecurityConfiguration.class);
+    
     @Inject
   	private SecurityProperties securityProperties;<% } %>
 

@@ -9,7 +9,8 @@ module.exports = {
     askForModuleName,
     askFori18n,
     askForTestOpts,
-    askForMoreModules
+    askForEnableLdap,
+    askForEnableAudit
 };
 
 function askForInsightOptIn() {
@@ -119,7 +120,8 @@ function askForTestOpts() {
 
     this.prompt({
         when: function () {
-            return false; //nunca muestro esta opcion, por ahora test basicos con junit
+            //nunca muestro esta opcion, por ahora test basicos con junit
+            return false;
         },
         type: 'checkbox',
         name: 'testFrameworks',
@@ -134,7 +136,7 @@ function askForTestOpts() {
     }.bind(this));
 }
 
-function askForMoreModules() {
+function askForEnableAudit() {
     if (this.existingProject) {
         return;
     }
@@ -143,22 +145,37 @@ function askForMoreModules() {
     var generator = this;
     this.prompt({
         type: 'confirm',
-        name: 'installModules',
+        name: 'enableEntityAudit',
         message: function(response) {
-            return generator.getNumberedQuestion('Would you like to install the plugin for entity-audit-and-delete?', true);
+            return generator.getNumberedQuestion('Would you like to include entity auditing?', true);
         },
-        default: false
+        default: true
     }).then(function (prompt) {
-        if (prompt.installModules) {
-          generator.configOptions.otherModules = [
-            {
-                value: { name:'generator-jhipster-entity-audit-and-delete', version:'2.2.2'},
-                name: 'generator-jhipster-entity-audit-and-delete-2.2.2'
-            }
-          ];
+        if (prompt.enableEntityAudit !== undefined) {
+          this.enableEntityAudit = this.configOptions.enableEntityAudit = prompt.enableEntityAudit;
           done();
-        } else {
-            done();
+        }
+    }.bind(this));
+}
+
+function askForEnableLdap() {
+    if (this.existingProject) {
+        return;
+    }
+
+    var done = this.async();
+    var generator = this;
+    this.prompt({
+        type: 'confirm',
+        name: 'enableLdapSupport',
+        message: function(response) {
+            return generator.getNumberedQuestion('Would you like to include LDAP authentication?', true);
+        },
+        default: true
+    }).then(function (prompt) {
+        if (prompt.enableLdapSupport !== undefined) {
+          this.enableLdapSupport = this.configOptions.enableLdapSupport = prompt.enableLdapSupport;
+          done();
         }
     }.bind(this));
 }

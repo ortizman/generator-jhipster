@@ -201,12 +201,12 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/security/jwt/_TokenProvider.java', javaDir + 'security/jwt/TokenProvider.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/security/jwt/_JWTConfigurer.java', javaDir + 'security/jwt/JWTConfigurer.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/security/jwt/_JWTFilter.java', javaDir + 'security/jwt/JWTFilter.java', this, {});
+                this.template(SERVER_MAIN_SRC_DIR + 'package/config/_SecurityConfiguration.java', javaDir + 'config/SecurityConfiguration.java', this, {});
             }
 
 
             if (this.enableLdapSupport && this.authenticationType === 'jwt') {
 
-              this.template(SERVER_MAIN_SRC_DIR + 'package/config/_SecurityConfiguration.java', javaDir + 'config/SecurityConfiguration.java', this, {});
               this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/vm/_LoginVM.java', javaDir + 'web/rest/vm/LoginVM.java', this, {});
               this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_UserJWTController.java', javaDir + 'web/rest/UserJWTController.java', this, {});
               this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_JWTToken.java', javaDir + 'web/rest/JWTToken.java', this, {});
@@ -280,14 +280,15 @@ function writeFiles() {
             }
 
             this.log('  +++++++++++++++++++++++ valor de enableLdapSupport: \n'+ this.enableLdapSupport + '\n +++++++++++++++++++++');
-            if (this.enableLdapSupport) {
-              this.copy(SERVER_MAIN_SRC_DIR + 'package/security/ldap/_SecurityProperties.java', javaDir + 'security/SecurityProperties.java');
-            }
+            this.log('  +++++++++++++++++++++++ valor de enableEntityAudit: \n'+ this.enableEntityAudit + '\n +++++++++++++++++++++');
+
+            this.copy(SERVER_MAIN_SRC_DIR + 'package/security/ldap/_SecurityProperties.java', javaDir + 'security/SecurityProperties.java');
+
         },
 
         writeServerJavaGatewayFiles: function () {
 
-            if (this.applicationType !== 'gateway') return;
+        if (this.applicationType !== 'gateway') return;
 
             this.template(SERVER_MAIN_SRC_DIR + 'package/config/_GatewayConfiguration.java', javaDir + 'config/GatewayConfiguration.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/config/apidoc/_GatewaySwaggerResourcesProvider.java', javaDir + 'config/apidoc/GatewaySwaggerResourcesProvider.java', this, {});

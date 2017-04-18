@@ -284,7 +284,7 @@ function askForServerSideOpts() {
                     name: 'MySQL'
                 }
             ],
-            default: 3
+            default: 2
         },
         {
             when: function (response) {

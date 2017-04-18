@@ -59,6 +59,7 @@ module.exports = JhipsterServerGenerator.extend({
             defaults: false
         });
 
+        this.enableEntityAudit = this.configOptions.enableEntityAudit;
         this.skipClient = !this.options['client-hook'] || this.configOptions.skipClient || this.config.get('skipClient');
         this.skipUserManagement = this.configOptions.skipUserManagement || this.options['skip-user-management'] || this.config.get('skipUserManagement');
         this.enableTranslation = this.options['i18n'];
@@ -164,7 +165,8 @@ module.exports = JhipsterServerGenerator.extend({
             this.enableSocialSignIn = this.config.get('enableSocialSignIn');
 
             //custom fluxit
-            this.enableLdapSupport = this.config.get('enableLdapSupport');
+            this.enableLdapSupport = this.configOptions.enableLdapSupport;
+            this.enableEntityAudit = this.configOptions.enableEntityAudit;
 
             this.jhipsterVersion = this.config.get('jhipsterVersion');
             if (this.jhipsterVersion === undefined) {
@@ -274,6 +276,7 @@ module.exports = JhipsterServerGenerator.extend({
             this.configOptions.buildTool = this.buildTool;
             this.configOptions.enableSocialSignIn = this.enableSocialSignIn;
             this.configOptions.enableLdapSupport = this.enableLdapSupport;
+            this.configOptions.enableEntityAudit = this.enableEntityAudit;
             this.configOptions.authenticationType = this.authenticationType;
             this.configOptions.uaaBaseName = this.uaaBaseName;
             this.configOptions.serverPort = this.serverPort;
