@@ -176,7 +176,7 @@
                   tableName="jhi_permission"/>
 
         <<% if (devDatabaseType === 'mssql' || prodDatabaseType === 'mssql') { %>ext:<% } %>loadData encoding="UTF-8"
-                  file="config/liquibase/authorities_permissions.csv  "
+                  file="config/liquibase/authorities_permissions.csv"
                   separator=";"
                   <%_ if (devDatabaseType === 'mssql' || prodDatabaseType === 'mssql') { _%>
                   identityInsertEnabled="true"
