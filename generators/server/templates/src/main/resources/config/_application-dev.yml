@@ -189,7 +189,15 @@ server:
 # ===================================================================
 # JHipster specific properties
 # ===================================================================
-
+security:
+      auth:
+        mode: BD
+      ldap:
+          url: ldap://192.168.0.28:389/dc=fluxit,dc=com,dc=ar
+          groupSearchFilter: member={0}
+          userSearchFilter: uid={0}
+          groupSearchBase: ou=groups
+          
 jhipster:
     <%_ if (applicationType == 'gateway') { _%>
     gateway:

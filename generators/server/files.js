@@ -354,10 +354,14 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/domain/util/_JSR310DateConverters.java', javaDir + 'domain/util/JSR310DateConverters.java', this, {});
             }
             if (this.databaseType === 'sql'|| this.databaseType === 'mongodb') {
-                this.template(SERVER_MAIN_SRC_DIR + 'package/config/_CloudDatabaseConfiguration.java', javaDir + 'config/CloudDatabaseConfiguration.java', this, {});
-                this.template(SERVER_MAIN_SRC_DIR + 'package/config/_DatabaseConfiguration.java', javaDir + 'config/DatabaseConfiguration.java', this, {});
+                //this.template(SERVER_MAIN_SRC_DIR + 'package/config/_CloudDatabaseConfiguration.java', javaDir + 'config/CloudDatabaseConfiguration.java', this, {});
                 //this.template(SERVER_MAIN_SRC_DIR + 'package/config/audit/_package-info.java', javaDir + 'config/audit/package-info.java', this, {});
+                this.template(SERVER_MAIN_SRC_DIR + 'package/config/_DatabaseConfiguration.java', javaDir + 'config/DatabaseConfiguration.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/config/audit/_AuditEventConverter.java', javaDir + 'config/audit/AuditEventConverter.java', this, {});
+                this.template(SERVER_MAIN_SRC_DIR + 'package/config/audit/_AsyncEntityAuditEventWriter.java', javaDir + 'config/audit/AsyncEntityAuditEventWriter.java', this, {});
+                this.template(SERVER_MAIN_SRC_DIR + 'package/config/audit/_EntityAuditAction.java', javaDir + 'config/audit/EntityAuditAction.java', this, {});
+                this.template(SERVER_MAIN_SRC_DIR + 'package/config/audit/_EntityAuditEventConfig.java', javaDir + 'config/audit/EntityAuditEventConfig.java', this, {});
+                this.template(SERVER_MAIN_SRC_DIR + 'package/config/audit/_EntityAuditEventListener.java', javaDir + 'config/audit/EntityAuditEventListener.java', this, {});
             }
 
             this.template(SERVER_MAIN_SRC_DIR + 'package/config/_JHipsterProperties.java', javaDir + 'config/JHipsterProperties.java', this, {});
@@ -411,6 +415,7 @@ function writeFiles() {
             }
             if (this.databaseType === 'sql' || this.databaseType === 'mongodb') {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/domain/_AbstractAuditingEntity.java', javaDir + 'domain/AbstractAuditingEntity.java', this, {});
+                this.template(SERVER_MAIN_SRC_DIR + 'package/domain/_EntityAuditEvent.java', javaDir + 'domain/EntityAuditEvent.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/domain/_PersistentAuditEvent.java', javaDir + 'domain/PersistentAuditEvent.java', this, {});
             }
         },
@@ -540,6 +545,8 @@ function writeFiles() {
                 this.copy(SERVER_MAIN_RES_DIR + 'config/liquibase/users.csv', SERVER_MAIN_RES_DIR + 'config/liquibase/users.csv');
                 this.copy(SERVER_MAIN_RES_DIR + 'config/liquibase/authorities.csv', SERVER_MAIN_RES_DIR + 'config/liquibase/authorities.csv');
                 this.copy(SERVER_MAIN_RES_DIR + 'config/liquibase/users_authorities.csv', SERVER_MAIN_RES_DIR + 'config/liquibase/users_authorities.csv');
+                this.copy(SERVER_MAIN_RES_DIR + 'config/liquibase/authorities_permissions.csv', SERVER_MAIN_RES_DIR + 'config/liquibase/authorities_permissions.csv');
+                this.copy(SERVER_MAIN_RES_DIR + 'config/liquibase/permissions.csv', SERVER_MAIN_RES_DIR + 'config/liquibase/permissions.csv');
                 if (this.authenticationType === 'oauth2') {
                     this.copy(SERVER_MAIN_RES_DIR + 'config/liquibase/oauth_client_details.csv', SERVER_MAIN_RES_DIR + 'config/liquibase/oauth_client_details.csv');
                 }
@@ -568,6 +575,7 @@ function writeFiles() {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_CustomAuditEventRepository.java', javaDir + 'repository/CustomAuditEventRepository.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_AuthorityRepository.java', javaDir + 'repository/AuthorityRepository.java', this, {});
                 this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_PersistenceAuditEventRepository.java', javaDir + 'repository/PersistenceAuditEventRepository.java', this, {});
+                this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_EntityAuditEventRepository.java', javaDir + 'repository/EntityAuditEventRepository.java', this, {});
 
             }
             this.template(SERVER_MAIN_SRC_DIR + 'package/repository/_UserRepository.java', javaDir + 'repository/UserRepository.java', this, {});
@@ -582,6 +590,7 @@ function writeFiles() {
             /* User management java web files */
             //this.template(SERVER_MAIN_SRC_DIR + 'package/service/dto/_package-info.java', javaDir + 'service/dto/package-info.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/service/dto/_UserDTO.java', javaDir + 'service/dto/UserDTO.java', this, {});
+            this.template(SERVER_MAIN_SRC_DIR + 'package/service/dto/_AbstractAuditingDTO.java', javaDir + 'service/dto/AbstractAuditingDTO.java', this, {});
 
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/vm/_ManagedUserVM.java', javaDir + 'web/rest/vm/ManagedUserVM.java', this, {});
             this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_UserResource.java', javaDir + 'web/rest/UserResource.java', this, {});
@@ -594,6 +603,7 @@ function writeFiles() {
 
             if (this.databaseType === 'sql' || this.databaseType === 'mongodb') {
                 this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_AuditResource.java', javaDir + 'web/rest/AuditResource.java', this, {});
+                this.template(SERVER_MAIN_SRC_DIR + 'package/web/rest/_EntityAuditResource.java', javaDir + 'web/rest/EntityAuditResource.java', this, {});
             }
 
             /* User management java test files */

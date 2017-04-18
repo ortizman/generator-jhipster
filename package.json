@@ -1,5 +1,5 @@
 {
-  "name": "generator-fhipster",
+  "name": "generator-jhipster",
   "version": "3.12.2",
   "description": "Template base para aplicaciones Java",
   "files": [
