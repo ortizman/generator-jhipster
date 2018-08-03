@@ -225,8 +225,6 @@ module.exports = class extends BaseGenerator {
 
     get prompting() {
         return {
-            askForInsightOptIn: prompts.askForInsightOptIn,
-            askForApplicationType: prompts.askForApplicationType,
             askForModuleName: prompts.askForModuleName
         };
     }

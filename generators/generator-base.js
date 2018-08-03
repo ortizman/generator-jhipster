@@ -34,7 +34,7 @@ const PrivateBase = require('./generator-base-private');
 
 const JHIPSTER_CONFIG_DIR = '.jhipster';
 const MODULES_HOOK_FILE = `${JHIPSTER_CONFIG_DIR}/modules/jhi-hooks.json`;
-const GENERATOR_JHIPSTER = 'generator-jhipster';
+const GENERATOR_JHIPSTER = 'generator-fluxinitv18';
 
 const CLIENT_MAIN_SRC_DIR = constants.CLIENT_MAIN_SRC_DIR;
 const CLIENT_WEBPACK_DIR = constants.CLIENT_WEBPACK_DIR;
@@ -54,7 +54,7 @@ module.exports = class extends PrivateBase {
      *
      * @param {string} namespace - namespace of the .yo-rc.json config file. By default: generator-jhipster
      */
-    getJhipsterAppConfig(namespace = 'generator-jhipster') {
+    getJhipsterAppConfig(namespace = 'generator-fluxinit') {
         const fromPath = '.yo-rc.json';
         if (shelljs.test('-f', fromPath)) {
             const fileData = this.fs.readJSON(fromPath);

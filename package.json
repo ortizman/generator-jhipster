@@ -1,7 +1,7 @@
 {
-  "name": "generator-jhipster",
+  "name": "generator-fluxinit",
   "version": "5.1.0",
-  "description": "Spring Boot + Angular/React in one handy generator",
+  "description": "Stack tecnologico base de Flux IT",
   "files": [
     "cli",
     "generators"
@@ -20,7 +20,7 @@
     "Webpack",
     "Docker"
   ],
-  "homepage": "https://www.jhipster.tech/",
+  "homepage": "https://gitlab.extranet.fluxit.com.ar/",
   "bugs": "https://github.com/jhipster/generator-jhipster/issues",
   "author": {
     "name": "Julien Dubois",
@@ -33,7 +33,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/jhipster/generator-jhipster.git"
+    "url": "https://github.com/ortizman/generator-jhipster.git"
   },
   "scripts": {
     "completion": "tabtab install --name jhipster --auto",
@@ -87,10 +87,5 @@
     "node": ">=8.10.0",
     "npm": ">=5.6.0"
   },
-  "license": "Apache-2.0",
-  "collective": {
-    "type": "opencollective",
-    "url": "https://opencollective.com/generator-jhipster",
-    "logo": "https://opencollective.com/opencollective/logo.txt"
-  }
+  "license": "Apache-2.0"
 }

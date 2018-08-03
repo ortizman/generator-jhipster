@@ -19,80 +19,12 @@
 const chalk = require('chalk');
 
 module.exports = {
-    askForInsightOptIn,
-    askForApplicationType,
     askForModuleName,
     askFori18n,
     askForTestOpts,
     askForMoreModules
 };
 
-function askForInsightOptIn() {
-    if (this.existingProject) return;
-
-    const done = this.async();
-    const insight = this.insight();
-
-    this.prompt({
-        when: () => insight.optOut === undefined,
-        type: 'confirm',
-        name: 'insight',
-        message: `May ${chalk.cyan('JHipster')} anonymously report usage statistics to improve the tool over time?`,
-        default: true
-    }).then((prompt) => {
-        if (prompt.insight !== undefined) {
-            insight.optOut = !prompt.insight;
-        }
-        done();
-    });
-}
-
-function askForApplicationType(meta) {
-    if (!meta && this.existingProject) return;
-
-    const DEFAULT_APPTYPE = 'monolith';
-    const PROMPT = {
-        type: 'list',
-        name: 'applicationType',
-        message: `Which ${chalk.yellow('*type*')} of application would you like to create?`,
-        choices: [
-            {
-                value: DEFAULT_APPTYPE,
-                name: 'Monolithic application (recommended for simple projects)'
-            },
-            {
-                value: 'microservice',
-                name: 'Microservice application'
-            },
-            {
-                value: 'gateway',
-                name: 'Microservice gateway'
-            },
-            // Reactive applications are not yet supported!
-            //    {
-            //        value: 'reactive',
-            //        name: 'Reactive application'
-            //    },
-            {
-                value: 'uaa',
-                name: 'JHipster UAA server (for microservice OAuth2 authentication)'
-            }
-        ],
-        default: DEFAULT_APPTYPE
-    };
-
-    if (meta) return PROMPT; // eslint-disable-line consistent-return
-
-    const done = this.async();
-
-    const promise = this.skipServer
-        ? Promise.resolve({ applicationType: DEFAULT_APPTYPE })
-        : this.prompt(PROMPT);
-    promise.then((prompt) => {
-        this.applicationType = this.configOptions.applicationType = prompt.applicationType;
-        done();
-    });
-}
 
 function askForModuleName() {
     if (this.existingProject) return;
