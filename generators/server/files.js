@@ -220,17 +220,17 @@ const serverFiles = {
         {
             condition: generator => generator.buildTool === 'maven',
             templates: [
-                { file: 'mvnw', method: 'copy', noEjs: true },
-                { file: 'mvnw.cmd', method: 'copy', noEjs: true },
-                { file: '.mvn/wrapper/maven-wrapper.jar', method: 'copy', noEjs: true },
-                { file: '.mvn/wrapper/maven-wrapper.properties', method: 'copy', noEjs: true },
+                // { file: 'mvnw', method: 'copy', noEjs: true },
+                // { file: 'mvnw.cmd', method: 'copy', noEjs: true },
+                // { file: '.mvn/wrapper/maven-wrapper.jar', method: 'copy', noEjs: true },
+                // { file: '.mvn/wrapper/maven-wrapper.properties', method: 'copy', noEjs: true },
                 { file: 'pom.xml', options: { interpolate: INTERPOLATE_REGEX } }
             ]
         },
     ],
     serverResource: [
         {
-            condition: generator => generator.clientFramework === 'react',
+            condition: false,
             path: SERVER_MAIN_RES_DIR,
             templates: [
                 {
@@ -239,7 +239,7 @@ const serverFiles = {
             ]
         },
         {
-            condition: generator => generator.clientFramework !== 'react',
+            condition: false,
             path: SERVER_MAIN_RES_DIR,
             templates: [
                 { file: 'banner.txt', method: 'copy', noEjs: true }
