@@ -130,7 +130,14 @@ module.exports = class extends BaseGenerator {
             defaults: false
         });
 
+        this.option('skip-frontend', {
+            desc: 'Skip the client-side application copy (template by fluxit)',
+            type: Boolean,
+            defaults: false
+        });
+
         this.skipClient = this.configOptions.skipClient = this.options['skip-client'] || this.config.get('skipClient');
+        this.skipFrontend = this.configOptions.skipFrontend = this.options['skip-frontend'] || this.config.get('skipFrontend');
         this.skipServer = this.configOptions.skipServer = this.options['skip-server'] || this.config.get('skipServer');
         this.skipUserManagement = this.configOptions.skipUserManagement = this.options['skip-user-management'] || this.config.get('skipUserManagement');
         this.skipCheckLengthOfIdentifier = this.configOptions.skipCheckLengthOfIdentifier = this.options['skip-check-length-of-identifier'] || this.config.get('skipCheckLengthOfIdentifier');
@@ -287,6 +294,16 @@ module.exports = class extends BaseGenerator {
                 });
             },
 
+            composeFluxClient() {
+                if (this.skipFrontend) return;
+
+                this.composeWith(require.resolve('../frontend'), {
+                    'skip-install': this.options['skip-install'],
+                    configOptions: this.configOptions,
+                    force: this.options.force
+                });
+            },
+
             askFori18n: prompts.askFori18n
         };
     }
@@ -337,6 +354,7 @@ module.exports = class extends BaseGenerator {
                 }
                 this.blueprint && (config.blueprint = this.blueprint);
                 this.skipClient && (config.skipClient = true);
+                this.skipFrontend && (config.skipFrontend = true);
                 this.skipServer && (config.skipServer = true);
                 this.skipUserManagement && (config.skipUserManagement = true);
                 this.config.set(config);

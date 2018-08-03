@@ -168,6 +168,7 @@ const constants = {
     TEST_DIR,
 
     CLIENT_MAIN_SRC_DIR: `${MAIN_DIR}webapp/`,
+    FRONTEND_SRC: '../',
     CLIENT_TEST_SRC_DIR: `${TEST_DIR}javascript/`,
     CLIENT_WEBPACK_DIR: 'webpack/',
     CLIENT_DIST_DIR,

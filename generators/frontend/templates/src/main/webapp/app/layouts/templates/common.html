@@ -1,0 +1,36 @@
+
+<div ng-switch="ctx.isAuthenticated()" >
+    
+    <!-- isAuthenticated == FALSE -->
+    <div ng-switch-when="false">
+        <section id="main" class="login">
+             <section class="page-view">
+                <div class="container" data-ng-include="'app/login/login.html'" ></div>
+            </section> 
+        </section>
+    </div>
+
+    <!-- isAuthenticated == TRUE -->
+    <div ng-switch-when="true">-
+        
+        <header id="header" data-current-skin={{ctx.currentSkin}} data-ng-include="'app/layouts/templates/header.html'" 
+            data-ng-controller="HeaderController as header"></header>
+
+        <section id="main">
+            <aside id="sidebarLeft" class="sidebar" 
+                   data-ng-include="'app/layouts/templates/sidebar-left.html'" 
+                   data-ng-class="{ 'toggled': ctx.sidebarToggle.left === true }"></aside>
+
+            <aside id="chat"  
+                   data-ng-include="'app/layouts/templates/sidebar-right.html'" 
+                   data-ng-class="{ 'toggled': ctx.sidebarToggle.right === true }"></aside>
+
+            <section id="content" class="page-view">
+                <div class="container" data-ui-view></div>
+            </section> 
+        </section>
+
+        <footer id="footer" data-ng-include="'app/layouts/templates/footer.html'"></footer>
+    <!--</div>-->
+</div>
+
