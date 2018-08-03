@@ -469,6 +469,10 @@ module.exports = class extends BaseGenerator {
                     }Please follow our documentation on using Oracle to set up the \n`
                         + 'Oracle proprietary JDBC driver.');
                 }
+
+                this.spawnCommandSync('mkdir', ['backend/']);
+                this.spawnCommandSync('mv', ['pom.xml', 'src/', 'README.md', '.gitignore', '.gitattributes', 'backend/']);
+
                 this.log(chalk.green.bold('\nServer application generated successfully.\n'));
 
                 let executable = 'mvnw';
