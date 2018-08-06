@@ -471,7 +471,7 @@ module.exports = class extends BaseGenerator {
                 }
 
                 this.spawnCommandSync('mkdir', ['backend/']);
-                this.spawnCommandSync('mv', ['pom.xml', 'src/', 'README.md', '.gitignore', '.gitattributes', 'backend/']);
+                this.spawnCommandSync('mv', ['pom.xml', 'src/', 'README.md', '.gitignore', '.gitattributes', '.yo-rc.json', 'backend/']);
 
                 this.log(chalk.green.bold('\nServer application generated successfully.\n'));
 

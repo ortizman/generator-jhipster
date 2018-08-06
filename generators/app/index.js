@@ -136,7 +136,8 @@ module.exports = class extends BaseGenerator {
             defaults: false
         });
 
-        this.skipClient = this.configOptions.skipClient = this.options['skip-client'] || this.config.get('skipClient');
+        // Salto la generacion del cliente por defecto
+        this.skipClient = this.configOptions.skipClient = true;
         this.skipFrontend = this.configOptions.skipFrontend = this.options['skip-frontend'] || this.config.get('skipFrontend');
         this.skipServer = this.configOptions.skipServer = this.options['skip-server'] || this.config.get('skipServer');
         this.skipUserManagement = this.configOptions.skipUserManagement = this.options['skip-user-management'] || this.config.get('skipUserManagement');
@@ -283,15 +284,15 @@ module.exports = class extends BaseGenerator {
             },
 
             composeClient() {
-                if (this.skipClient) return;
+                // if (this.skipClient) return;
 
-                this.composeWith(require.resolve('../client'), {
-                    'skip-install': this.options['skip-install'],
-                    'skip-commit-hook': this.options['skip-commit-hook'],
-                    configOptions: this.configOptions,
-                    force: this.options.force,
-                    debug: this.isDebugEnabled
-                });
+                // this.composeWith(require.resolve('../client'), {
+                //     'skip-install': this.options['skip-install'],
+                //     'skip-commit-hook': this.options['skip-commit-hook'],
+                //     configOptions: this.configOptions,
+                //     force: this.options.force,
+                //     debug: this.isDebugEnabled
+                // });
             },
 
             composeFluxClient() {
@@ -382,34 +383,34 @@ module.exports = class extends BaseGenerator {
                 }
             },
 
-            generatePackageForMS() {
-                if (this.skipClient) {
-                    if (this.otherModules === undefined) {
-                        this.otherModules = [];
-                    }
-                    // Generate a package.json file containing the current version
-                    // of the generator as dependency
-                    this.dasherizedBaseName = _.kebabCase(this.baseName);
-                    this.template('skipClientApp.package.json.ejs', 'package.json');
-                }
-            }
+            // generatePackageForMS() {
+            //     if (this.skipClient) {
+            //         if (this.otherModules === undefined) {
+            //             this.otherModules = [];
+            //         }
+            //         // Generate a package.json file containing the current version
+            //         // of the generator as dependency
+            //         this.dasherizedBaseName = _.kebabCase(this.baseName);
+            //         this.template('skipClientApp.package.json.ejs', 'package.json');
+            //     }
+            // }
         };
     }
 
     get end() {
         return {
             localInstall() {
-                if (this.skipClient) {
-                    if (!this.options['skip-install']) {
-                        if (this.clientPackageManager === 'yarn') {
-                            this.log(chalk.bold(`\nInstalling generator-jhipster@${this.jhipsterVersion} locally using yarn`));
-                            this.yarnInstall();
-                        } else if (this.clientPackageManager === 'npm') {
-                            this.log(chalk.bold(`\nInstalling generator-jhipster@${this.jhipsterVersion} locally using npm`));
-                            this.npmInstall();
-                        }
-                    }
-                }
+                // if (this.skipClient) {
+                //     if (!this.options['skip-install']) {
+                //         if (this.clientPackageManager === 'yarn') {
+                //             this.log(chalk.bold(`\nInstalling generator-jhipster@${this.jhipsterVersion} locally using yarn`));
+                //             this.yarnInstall();
+                //         } else if (this.clientPackageManager === 'npm') {
+                //             this.log(chalk.bold(`\nInstalling generator-jhipster@${this.jhipsterVersion} locally using npm`));
+                //             this.npmInstall();
+                //         }
+                //     }
+                // }
 
                 if (!this.options['skip-git']) {
                     this.isGitInstalled((code) => {

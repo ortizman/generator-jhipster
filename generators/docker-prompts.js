@@ -191,7 +191,7 @@ function loadConfigs() {
     this.appsFolders.forEach((appFolder) => {
         const path = this.destinationPath(`${this.directoryPath + appFolder}/.yo-rc.json`);
         const fileData = this.fs.readJSON(path);
-        const config = fileData['generator-jhipster'];
+        const config = fileData['generator-fluxinit'];
 
         if (config.applicationType === 'monolith') {
             this.monolithicNb++;
@@ -415,15 +415,18 @@ function getAppFolders(input, composeApplicationType) {
 
     files.forEach((file) => {
         if (file.isDirectory()) {
+            
             if ((shelljs.test('-f', `${destinationPath}/${file.name}/.yo-rc.json`))
-                && (shelljs.test('-f', `${destinationPath}/${file.name}/src/main/docker/app.yml`))) {
+            && (shelljs.test('-f', `${destinationPath}/${file.name}/src/main/docker/app.yml`))) {
                 try {
+                    
                     const fileData = this.fs.readJSON(`${destinationPath}/${file.name}/.yo-rc.json`);
-                    if ((fileData['generator-jhipster'].baseName !== undefined)
+
+                    if ((fileData['generator-fluxinit'].baseName !== undefined)
                         && ((composeApplicationType === undefined)
-                            || (composeApplicationType === fileData['generator-jhipster'].applicationType)
-                            || ((composeApplicationType === 'microservice') && (fileData['generator-jhipster'].applicationType === 'gateway'))
-                            || ((composeApplicationType === 'microservice') && (fileData['generator-jhipster'].applicationType === 'uaa')))) {
+                            || (composeApplicationType === fileData['generator-fluxinit'].applicationType)
+                            || ((composeApplicationType === 'microservice') && (fileData['generator-fluxinit'].applicationType === 'gateway'))
+                            || ((composeApplicationType === 'microservice') && (fileData['generator-fluxinit'].applicationType === 'uaa')))) {
                         appsFolders.push(file.name.match(/([^/]*)\/*$/)[1]);
                     }
                 } catch (err) {
