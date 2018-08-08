@@ -72,23 +72,7 @@ function askForTestOpts(meta) {
 }
 
 function askForMoreModules() {
-    if (this.existingProject) {
-        return;
-    }
-
-    const done = this.async();
-    this.prompt({
-        type: 'confirm',
-        name: 'installModules',
-        message: 'Would you like to install other generators from the JHipster Marketplace?',
-        default: false
-    }).then((prompt) => {
-        if (prompt.installModules) {
-            askModulesToBeInstalled(done, this);
-        } else {
-            done();
-        }
-    });
+    return false;
 }
 
 function askModulesToBeInstalled(done, generator) {

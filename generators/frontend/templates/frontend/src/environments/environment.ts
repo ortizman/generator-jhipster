@@ -10,4 +10,7 @@
 
 export const environment = {
   production: false,
+  baseEndpoint: 'http://localhost:8080',
+  api: 'api',
+  header: 'Authorization'
 };

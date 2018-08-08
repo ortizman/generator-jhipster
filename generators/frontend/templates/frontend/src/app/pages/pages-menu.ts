@@ -8,6 +8,25 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
   {
+    title:'Administración',
+    group: true,
+  },
+  {
+    title: 'ABM de Entidades',
+    icon: 'nb-tables',
+    children: [
+      {
+        title: 'Usuarios',
+        link: '/pages/users/list',
+      },
+    ],
+  },
+  {
+    title: 'API docs',
+    icon: 'nb-compose',
+    url: 'http://petstore.swagger.io/?url=http://localhost:8080/v2/api-docs'
+  },
+  {
     title: 'FEATURES',
     group: true,
   },

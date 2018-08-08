@@ -26,8 +26,9 @@ import { StateService } from '../../../@core/data/state.service';
                    responsive
                    [end]="sidebar.id === 'end'">
         <nb-sidebar-header *ngIf="currentTheme !== 'corporate'">
-          <a href="#" class="btn btn-hero-success main-btn">
-            <i class="ion ion-social-github"></i> <span>Support Us</span>
+          <a href="#" class="btn btn-primary main-btn">
+          <img id="logoflux" 
+          src="https://www.fluxit.com.ar/wp-content/themes/Theme%20FluxIT/images/fluxit-green.svg" logo_original="https://www.fluxit.com.ar/wp-content/themes/Theme%20FluxIT/images/fluxit-green.svg" alt="Flux IT">
           </a>
         </nb-sidebar-header>
         <ng-content select="nb-menu"></ng-content>

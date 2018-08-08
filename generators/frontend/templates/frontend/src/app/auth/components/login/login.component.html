@@ -1,0 +1,71 @@
+<nb-auth-block>
+    <h2 class="title">Iniciar Sesión</h2>
+    <small class="form-text sub-title">Hola! ingresa con tu usuario</small>
+
+    <form (ngSubmit)="login()" #form="ngForm" autocomplete="nope">
+
+        <div *ngIf="showMessages.error && errors && errors.length > 0 && !submitted" class="alert alert-danger" role="alert">
+            <div>
+                <strong>Oh snap!</strong>
+            </div>
+            <div *ngFor="let error of errors">{{ error }}</div>
+        </div>
+
+        <div *ngIf="showMessages.success && messages && messages.length > 0 && !submitted" class="alert alert-success" role="alert">
+            <div>
+                <strong>Hooray!</strong>
+            </div>
+            <div *ngFor="let message of messages">{{ message }}</div>
+        </div>
+
+        <div class="form-group">
+            <label for="input-username" class="sr-only">Usuario</label>
+            <input name="username" [(ngModel)]="user.username" id="input-username" class="form-control" placeholder="Usuario"
+                #username="ngModel" [class.form-control-danger]="username.invalid && username.touched" autofocus required>
+            <small class="form-text error" *ngIf="username.invalid && username.touched && username.errors?.required">
+                Usuario requerido!
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="input-password" class="sr-only">Contraseña</label>
+            <input name="password" [(ngModel)]="user.password" type="password" id="input-password" class="form-control" placeholder="Contraseña"
+                #password="ngModel" [class.form-control-danger]="password.invalid && password.touched" [required]="getConfigValue('forms.validation.password.required')"
+                [minlength]="getConfigValue('forms.validation.password.minLength')" [maxlength]="getConfigValue('forms.validation.password.maxLength')">
+            <small class="form-text error" *ngIf="password.invalid && password.touched && password.errors?.required">
+                Contraseña requerida!
+            </small>
+        </div>
+
+        <div class="form-group accept-group col-sm-12">
+            <nb-checkbox *ngIf="rememberMe" name="rememberMe" [(ngModel)]="user.rememberMe">Remember me</nb-checkbox>
+            <a *ngIf="forgotPass" class="forgot-password" routerLink="../request-password">¿Olvidaste tu cuenta?</a>
+        </div>
+
+        <button [disabled]="submitted || !form.valid" class="btn btn-block btn-primary" [class.btn-pulse]="submitted">
+            Ingresar
+        </button>
+    </form>
+
+    <div class="links">
+
+        <ng-container *ngIf="socialLinks && socialLinks.length > 0">
+            <small class="form-text">Or connect with:</small>
+
+            <div class="socials">
+                <ng-container *ngFor="let socialLink of socialLinks">
+                    <a *ngIf="socialLink.link" [routerLink]="socialLink.link" [attr.target]="socialLink.target" [attr.class]="socialLink.icon"
+                        [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
+                    <a *ngIf="socialLink.url" [attr.href]="socialLink.url" [attr.target]="socialLink.target" [attr.class]="socialLink.icon" [class.with-icon]="socialLink.icon">{{ socialLink.title }}</a>
+                </ng-container>
+            </div>
+        </ng-container>
+
+        <small *ngIf="signUp" class="form-text">
+            No tienes una cuenta?
+            <a routerLink="../register">
+                <strong>Registrate</strong>
+            </a>
+        </small>
+    </div>
+</nb-auth-block>

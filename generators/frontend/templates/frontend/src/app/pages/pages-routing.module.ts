@@ -9,6 +9,10 @@ const routes: Routes = [{
   component: PagesComponent,
   children: [
     {
+      path: 'users',
+      loadChildren: './users/tables.module#TablesModule',
+    },
+    {
       path: 'dashboard',
       component: DashboardComponent,
     },
@@ -16,7 +20,7 @@ const routes: Routes = [{
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
-    },
+    }
   ],
 }];
 

@@ -1,6 +1,9 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
+import { NbAuthModule, NbPasswordAuthStrategy, NbAuthJWTToken } from '@nebular/auth';
+import { environment } from '../../environments/environment';
+import { HttpResponse } from '@angular/common/http';
+
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
@@ -36,23 +39,50 @@ export class NbSimpleRoleProvider extends NbRoleProvider {
 export const NB_CORE_PROVIDERS = [
   ...DataModule.forRoot().providers,
   ...NbAuthModule.forRoot({
-
     strategies: [
-      NbDummyAuthStrategy.setup({
-        name: 'email',
-        delay: 3000,
+      NbPasswordAuthStrategy.setup({
+        name: 'username',
+        baseEndpoint: environment.baseEndpoint,
+        token: {
+          class: NbAuthJWTToken,
+          getter: (module: string, res: HttpResponse<Object>) => {
+            const token:string = res.headers.get(environment.header);
+            if (token && token.startsWith("Bearer "))
+              return token.split(" ")[1];
+            else 
+              return token;
+          }
+        },
+        login: {
+          endpoint: '/api/authenticate',
+        },
+        logout: {
+          endpoint: '/api/logout',
+        }
       }),
-    ],
-    forms: {
+    ], forms: {
       login: {
-        socialLinks: socialLinks,
+        redirectDelay: 500, // delay before redirect after a successful login, while success message is shown to the user
+        strategy: 'username',  // strategy id key.
+        redirect: {
+          success: '/pages/dashboard',
+          failure: null,
+        },
+        rememberMe: false,
+        forgotPass: false,
+        signUp: false,  // whether to show or not the `rememberMe` checkbox
+        showMessages: {     // show/not show success/error messages
+          success: true,
+          error: true,
+        },
+        socialLinks: {}, // social links at the bottom of a page
       },
-      register: {
-        socialLinks: socialLinks,
+      logout: {
+        redirectDelay: 0,
       },
     },
   }).providers,
-
+  
   NbSecurityModule.forRoot({
     accessControl: {
       guest: {
